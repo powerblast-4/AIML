@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+df=pd.read_csv('/content/data (1).csv')
+print(df)
+print(df.info())
+print(df.isnull().sum())
+print(df.describe())
+print(df.columns)
+from sklearn.preprocessing import LabelEncoder
+le=LabelEncoder()
+df['diagnosis']=le.fit_transform(df['diagnosis'])
+print(df['diagnosis'])
+x=df.drop('diagnosis',axis=1)
+print(x)
+y=df['diagnosis']
+print(y)
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.23,random_state=0)
+print("x train shape:",x_train.shape)
+print("x test shape:",x_test.shape)
+print("y train shape:",y_test.shape)
+print("y test shape:",y_test.shape)
+from sklearn.tree import DecisionTreeClassifier
+model=DecisionTreeClassifier(random_state=1)
+model.fit(x_train,y_train)
+train_accuracy=model.score(x_train,y_train)
+print(train_accuracy)
+test_accuracy=model.score(x_test,y_test)
+print(test_accuracy)
+train_prediction=model.predict(x_train)
+print(train_prediction)
+test_prediction=model.predict(x_test)
+print(test_prediction)

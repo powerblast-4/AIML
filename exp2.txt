@@ -1,0 +1,51 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+cars_df = pd.read_csv("/content/Cars.csv")
+print(cars_df.head())
+
+
+plt.figure(figsize=(8, 6))
+plt.scatter(cars_df['MPG.city'], cars_df['Weight'], marker='*', color='darkblue')
+plt.xlabel("MPG (City)")
+plt.ylabel("Weight")
+plt.title("Relationship Between Car Weight and MPG (City)")
+plt.grid(True)
+plt.show()
+
+
+trans = cars_df['Man.trans.avail'].value_counts()
+print("\nTransmission Value Counts:\n", trans)
+
+plt.figure(figsize=(6, 4))
+trans.plot.bar(color='orange')
+plt.xlabel("Manual Transmission Available (0 = No, 1 = Yes)")
+plt.ylabel("Count")
+plt.title("Frequency Distribution of Transmission Types")
+plt.grid(axis='y')
+plt.show()
+
+
+plt.figure(figsize=(6, 4))
+cars_df['MPG.city'].plot(kind='box')
+plt.xlabel("MPG (City)")
+plt.title("Box and Whisker Plot of MPG (City)")
+plt.grid(True)
+plt.show()
+
+
+min_value = np.min(cars_df['MPG.city'])
+q1 = np.percentile(cars_df['MPG.city'], 25)
+median = np.median(cars_df['MPG.city'])
+q3 = np.percentile(cars_df['MPG.city'], 75)
+max_value = np.max(cars_df['MPG.city'])
+
+
+
+print('MinimumValue:',min_value)
+print('Q1:',q1)
+print('Median:',median)
+print('Q3:',q3)
+print('MaximumValue:',max_value)
